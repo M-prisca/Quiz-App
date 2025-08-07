@@ -1,8 +1,11 @@
 import React from "react";
 import "./Quiz.css";
+import { useState } from "react";
+import questions from "../../assets/questions.js";
 
 const Quiz = () => {
   let [index, setIndex] = useState(0);
+  let [question, setQuestion] = useState();
   return (
     <div className="container">
       <h1>React Quiz</h1>

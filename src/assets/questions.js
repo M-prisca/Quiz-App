@@ -82,3 +82,4 @@ const questions = [
     ans: 2,
   },
 ];
+export default questions;
