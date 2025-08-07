@@ -50,12 +50,11 @@ const questions = [
   },
   {
     question: "What is the virtual DOM?",
-    options: [
-      "A copy of the real DOM kept in memory",
-      "The actual DOM",
-      "A browser API",
-      "A React component",
-    ],
+    options1: "A copy of the real DOM kept in memory",
+    options2: "The actual DOM",
+    options3: "A browser API",
+    options4: "A React component",
+    ans: 1,
   },
   {
     question: "Which method is used to render React elements to the DOM?",
