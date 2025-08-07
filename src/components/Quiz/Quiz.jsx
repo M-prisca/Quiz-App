@@ -7,6 +7,7 @@ const Quiz = () => {
   let [index, setIndex] = useState(0);
   let [question, setQuestion] = useState(questions[index]);
   let [lock, setLock] = useState(false);
+  let [score, setScore] = useState(0);
 
   let options1 = useRef(null);
   let options2 = useRef(null);
@@ -20,11 +21,22 @@ const Quiz = () => {
       if (question.ans === ans) {
         e.target.classList.add("correct");
         setLock(true);
+        setScore(score + 1);
       } else {
         e.target.classList.add("wrong");
         setLock(true);
         optionArr[question.ans - 1].current.classList.add("correct");
       }
+    }
+  };
+  const next = () => {
+    if (lock === true) {
+      setIndex(++index);
+      setQuestion(questions[index]);
+      setLock(false);
+      optionArr.forEach((option) => {
+        option.current.classList.remove("correct", "wrong");
+      });
     }
   };
   return (
@@ -48,8 +60,10 @@ const Quiz = () => {
           {question.options4}
         </li>
       </ul>
-      <button>Next</button>
-      <div className="index">1 of 10 questions</div>
+      <button onClick={next}>Next</button>
+      <div className="index">
+        {index + 1} of {questions.length} questions
+      </div>
     </div>
   );
 };
