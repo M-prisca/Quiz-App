@@ -8,6 +8,7 @@ const Quiz = () => {
   let [question, setQuestion] = useState(questions[index]);
   let [lock, setLock] = useState(false);
   let [score, setScore] = useState(0);
+  let [result, setResult] = useState(false);
 
   let options1 = useRef(null);
   let options2 = useRef(null);
@@ -30,6 +31,9 @@ const Quiz = () => {
     }
   };
   const next = () => {
+    if (index === questions.length - 1) {
+      setResult(true);
+    }
     if (lock === true) {
       setIndex(++index);
       setQuestion(questions[index]);
@@ -39,31 +43,56 @@ const Quiz = () => {
       });
     }
   };
+
+  const restart = () => {
+    setIndex(0);
+    setQuestion(questions[0]);
+    setLock(false);
+    setScore(0);
+    setResult(false);
+  };
   return (
     <div className="container">
       <h1>React Quiz</h1>
       <hr />
-      <h2>
-        {index + 1}. {question.question}{" "}
-      </h2>
-      <ul>
-        <li ref={options1} onClick={(e) => checkAnswer(e, 1)}>
-          {question.options1}
-        </li>
-        <li ref={options2} onClick={(e) => checkAnswer(e, 2)}>
-          {question.options2}
-        </li>
-        <li ref={options3} onClick={(e) => checkAnswer(e, 3)}>
-          {question.options3}
-        </li>
-        <li fer={options4} onClick={(e) => checkAnswer(e, 4)}>
-          {question.options4}
-        </li>
-      </ul>
-      <button onClick={next}>Next</button>
-      <div className="index">
-        {index + 1} of {questions.length} questions
-      </div>
+      {result ? (
+        <></>
+      ) : (
+        <>
+          <h2>
+            {index + 1}. {question.question}{" "}
+          </h2>
+          <ul>
+            <li ref={options1} onClick={(e) => checkAnswer(e, 1)}>
+              {question.options1}
+            </li>
+            <li ref={options2} onClick={(e) => checkAnswer(e, 2)}>
+              {question.options2}
+            </li>
+            <li ref={options3} onClick={(e) => checkAnswer(e, 3)}>
+              {question.options3}
+            </li>
+            <li fer={options4} onClick={(e) => checkAnswer(e, 4)}>
+              {question.options4}
+            </li>
+          </ul>
+          <button onClick={next}>Next</button>
+          <div className="index">
+            {index + 1} of {questions.length} questions
+          </div>
+        </>
+      )}
+
+      {result ? (
+        <>
+          <h2>
+            You Scored {score} out of {questions.length} questions
+          </h2>
+          <button onClick={restart}>Restart</button>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
